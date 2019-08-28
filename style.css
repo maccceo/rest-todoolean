@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: arial;
+	font-family: 'Rubik', sans-serif;
 }
 
 h1 {
@@ -16,8 +16,7 @@ h1 {
 	padding: 20px;
 	margin: 20px auto;
 	border: 3px solid black;
-	background-color: green;
-	color: white;
+	background-color: skyblue;
 	font-weight: bold;
 	cursor: pointer;
 }

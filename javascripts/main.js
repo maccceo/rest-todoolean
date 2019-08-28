@@ -6,18 +6,25 @@ var content;
 $(document).ready(init);
 
 function init() {
-    //Carico tutti i Todo del server
+    //Modalità READ : Carico tutti i Todo del server
     loadTodo();
-
-    //Modalità DELETE
-    $(document).on("click", ".delete", deleteTodo);
 
     //Modalità CREATE
     $("#addTodo").click(createTodo);
+
+    //Modalità DELETE
+    $(document).on("click", ".delete", deleteTodo);
 }
 
+function clearTodo() {
+	$(".box").remove();
+}
 
 function loadTodo() {
+	//tolgo tutto quello che c'era prima
+	clearTodo();
+
+	//richiedo i dati aggiornati
 	$.ajax({
 		url: "http://157.230.17.132:3004/todos",
 		method: "GET",
@@ -25,7 +32,7 @@ function loadTodo() {
 			printTodo(data);
 		},
 		error: function() {
-			alert("Errore");
+			console.log("Errore");
 		}
 	});
 }
@@ -36,6 +43,7 @@ function printTodo (data) {
 	//dove stampare i Todo
 	var target = $(".results");
 
+	//inserisco tutti i todo nel template per visualizzarli
 	for (var i in data) {
 		var content = {
 			id: data[i].id,
@@ -47,18 +55,19 @@ function printTodo (data) {
 }
 
 function deleteTodo() {
-	//bottone premuto
+	//bottone X che l'utente ha premuto
 	var pressedButton = $(this);
-	//tutto il box (X + attività)
+	//tutto il todo (box + X + attività)
 	var todoItem = pressedButton.parent();
 	//ID di quell'elemento
 	var id = todoItem.data("id");
 
+	//cancello il todo passando l'ID giusto
 	$.ajax({
 		url: "http://157.230.17.132:3004/todos/" + id,
 		method: "DELETE",
 		success: function(data) {
-			console.log("elemento rimosso");
+			showInfoMessage("Elemento rimosso", "red");
 			//rimuovo l'elemento intero dall'HTML
 			todoItem.remove();
 		},
@@ -69,8 +78,10 @@ function deleteTodo() {
 }
 
 function createTodo() {
+	//acquisisco il todo da inserire
 	var input = prompt("Inserisci il To-do:");
 
+	//spedisco il testo all'API che crea un nuovo todo
 	$.ajax({
 		url: "http://157.230.17.132:3004/todos/",
 		method: "POST",
@@ -78,17 +89,28 @@ function createTodo() {
 			text: input
 		},
 		success: function(data) {
-			console.log("elemento aggiunto");
-			//setto il template per stampare a schermo
-			var content = {
-				id: data.id,
-				text: data.text
-			}
-			var html = template(content);
-			$(".results").append(html);
+			showInfoMessage("Elemento aggiunto", "green");
+			//chiedo la lista aggiornata dei todo
+			loadTodo();
 		},
 		error: function() {
-			alert("Errore");
+			console.log("Errore");
 		}
 	});
+}
+
+function showInfoMessage (message, color) {
+	var duration = 2000;
+
+	//coloro il messaggio
+	$("#infoMessage").css("color", color);
+
+	//lo mostro
+	$("#infoMessage").text(message);
+
+	//nascondilo dopo che passa il tempo di duration (ms)
+	setTimeout(function() {
+		$("#infoMessage").text("");
+	}, duration);
+
 }
