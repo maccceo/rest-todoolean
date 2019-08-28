@@ -8,20 +8,25 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 </head>
 <body>
 
 	<h1>Cose da fare</h1>
 	<p id="addTodo">Aggiungi elemento</p>
-	<p id="infoMessage"></p>
 
 	<div class="results">
 	</div>
 
+	<p id="infoMessage"></p>
+
 	<script id="item-template" type="text/x-handlebars-template">
 		<div class="box" data-id="{{id}}">
-			<p class="delete">X</p>
 			<p>{{text}}</p>
+			<div class="left-icons">
+				<i class="update fas fa-pen"></i>
+				<i class="delete fas fa-trash-alt"></i>
+			</div>
 		</div>
 	</script>
 	<script type="text/javascript" src="javascripts/main.js"></script>

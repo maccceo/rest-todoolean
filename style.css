@@ -3,52 +3,63 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Rubik', sans-serif;
+	user-select: none;
+	list-style: none;
+}
+
+body {
+	background-color: lightcyan;
 }
 
 h1 {
 	text-align: center;
+	text-transform: uppercase;
+	margin: 40px 0 20px;
 }
 
 #addTodo {
 	display: block;
 	text-align: center;
 	width: 200px;
-	padding: 20px;
-	margin: 20px auto;
-	border: 3px solid black;
-	background-color: skyblue;
+	padding: 10px;
+	margin: 0 auto;
+	border: 1px solid mediumspringgreen;
+	border-radius: 30px;
+	background-color: mediumspringgreen;
 	font-weight: bold;
 	cursor: pointer;
 }
 
 .results {
-	margin: 40px;
-	display: flex;
-	justify-content: space-around;
+	margin: 40px auto;
+	width: 500px;
+	background-color: peachpuff;
 }
 
 .box {
-	width: 200px;
-	height: 100px;
-	background-color: grey;
-	color: white;
-	border: 2px solid black;
-	text-align: center;
-	position: relative;
-	line-height: 100px;
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid tan;
+	font-size: 18px;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.delete {
-	font-size: 15px;
-	font-weight: bold;
-	line-height: 15px;
-	width: 15px;
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	border: 1px solid white;
-	border-radius: 50%;
-	color: black;
-	background-color: white;
+.left-icons > i {
+	margin: 0 3px;
+	font-size: 16px;
 	cursor: pointer;
+	color: dimgrey;
+}
+
+.left-icons > i:hover {
+	color: black;
+}
+
+#infoMessage {
+	text-align: center;
+	text-decoration: underline;
+	font-weight: bold;
 }

@@ -12,6 +12,9 @@ function init() {
     //Modalità CREATE
     $("#addTodo").click(createTodo);
 
+    //Modalità UPDATE
+    $(document).on("click", ".update", updateTodo);
+
     //Modalità DELETE
     $(document).on("click", ".delete", deleteTodo);
 }
@@ -54,29 +57,6 @@ function printTodo (data) {
 	}
 }
 
-function deleteTodo() {
-	//bottone X che l'utente ha premuto
-	var pressedButton = $(this);
-	//tutto il todo (box + X + attività)
-	var todoItem = pressedButton.parent();
-	//ID di quell'elemento
-	var id = todoItem.data("id");
-
-	//cancello il todo passando l'ID giusto
-	$.ajax({
-		url: "http://157.230.17.132:3004/todos/" + id,
-		method: "DELETE",
-		success: function(data) {
-			showInfoMessage("Elemento rimosso", "red");
-			//rimuovo l'elemento intero dall'HTML
-			todoItem.remove();
-		},
-		error: function() {
-			console.log("Errore");
-		}
-	});
-}
-
 function createTodo() {
 	//acquisisco il todo da inserire
 	var input = prompt("Inserisci il To-do:");
@@ -99,6 +79,61 @@ function createTodo() {
 	});
 }
 
+function updateTodo() {
+	//bottone con la matita che l'utente ha premuto
+	var pressedButton = $(this);
+	//tutta la riga del todo
+	var todoItem = pressedButton.parents(".box");
+	//ID di quell'elemento
+	var id = todoItem.data("id");
+
+	//il testo com'era fino ad ora
+	var previous = todoItem.children("p").text();
+
+	//fai inserire la modifica
+	var input = prompt("Modifica il testo:", previous);
+
+	//aggiorno il todo passando l'ID giusto
+	$.ajax({
+		url: "http://157.230.17.132:3004/todos/" + id,
+		method: "PUT",
+		data: {
+			text: input
+		},
+		success: function(data) {
+			showInfoMessage("Elemento modificato", "green");
+			//Richiedo la lista aggiornata
+			loadTodo();
+		},
+		error: function() {
+			console.log("Errore");
+		}
+	});
+}
+
+function deleteTodo() {
+	//icona Cestino che l'utente ha premuto
+	var pressedButton = $(this);
+	//tutta la riga del todo
+	var todoItem = pressedButton.parents(".box");
+	//ID di quell'elemento
+	var id = todoItem.data("id");
+
+	//cancello il todo passando l'ID giusto
+	$.ajax({
+		url: "http://157.230.17.132:3004/todos/" + id,
+		method: "DELETE",
+		success: function(data) {
+			showInfoMessage("Elemento rimosso", "red");
+			//rimuovo l'elemento intero dall'HTML
+			todoItem.remove();
+		},
+		error: function() {
+			console.log("Errore");
+		}
+	});
+}
+
 function showInfoMessage (message, color) {
 	var duration = 2000;
 
@@ -112,5 +147,4 @@ function showInfoMessage (message, color) {
 	setTimeout(function() {
 		$("#infoMessage").text("");
 	}, duration);
-
 }
