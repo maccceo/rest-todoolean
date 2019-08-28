@@ -1,0 +1,55 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: arial;
+}
+
+h1 {
+	text-align: center;
+}
+
+#addTodo {
+	display: block;
+	text-align: center;
+	width: 200px;
+	padding: 20px;
+	margin: 20px auto;
+	border: 3px solid black;
+	background-color: green;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.results {
+	margin: 40px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.box {
+	width: 200px;
+	height: 100px;
+	background-color: grey;
+	color: white;
+	border: 2px solid black;
+	text-align: center;
+	position: relative;
+	line-height: 100px;
+}
+
+.delete {
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 15px;
+	width: 15px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	border: 1px solid white;
+	border-radius: 50%;
+	color: black;
+	background-color: white;
+	cursor: pointer;
+}
